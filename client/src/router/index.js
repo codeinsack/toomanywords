@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Chat from '../views/Chat.vue';
-import SignIn from '../views/SignIn.vue';
+import Chat from '../pages/Chat.vue';
+import SignIn from '../pages/SignIn.vue';
 import Layout from '../components/Layout.vue';
-import SignUp from '../views/SignUp.vue';
+import SignUp from '../pages/SignUp.vue';
 
 Vue.use(VueRouter);
 
