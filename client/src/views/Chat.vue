@@ -1,7 +1,7 @@
 <template>
-  <VApp>
-    <RouterView />
-  </VApp>
+  <VContainer>
+    <h1>Agniezka to nasza nowa strona!!! :D</h1>
+  </VContainer>
 </template>
 
 <script>
