@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  nginx:
+    container_name: ante-nginx
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - client
+  api:
+    container_name: ante-server
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    ports:
+      - "5000:5000"
+    env_file:
+      - server/api.env
+    volumes:
+      - ./server:/app
+    command: /app/entrypoint.sh
+  client:
+    container_name: ante-client
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - ./client:/app
+    command: /app/entrypoint.sh
