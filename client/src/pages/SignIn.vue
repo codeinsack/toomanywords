@@ -3,10 +3,10 @@
     <div class="sign-in-card-container">
       <VCard class="sign-in-card pa-8 mr-0" width="550" flat>
         <VCardTitle class="text-h5 text-md-h4 font-weight-bold primary--text">
-          Too Many Words
+          Sign In
         </VCardTitle>
         <VCardSubtitle class="body-2 text-md-body-1">
-          Please enter your credentials to log in
+          Please enter your credentials to sign in
         </VCardSubtitle>
         <VCardText>
           <VForm @submit="onFormSubmit">
@@ -36,6 +36,7 @@
               <VCol cols="12" md="6">
                 <VBtn
                   class="sign-in-card__button rounded-0 text-capitalize white--text"
+                  to="/sign-up"
                   color="primary darken-1"
                   type="submit"
                 >
