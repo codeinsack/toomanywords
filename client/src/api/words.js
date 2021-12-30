@@ -4,22 +4,12 @@ const baseUrl = `/api/v1/words`;
 
 const fetchWords = async () => {
   const url = `${baseUrl}`;
-  try {
-    return await axios.get(url);
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+  return await axios.get(url);
 };
 
 const createWord = async (body) => {
   const url = `${baseUrl}`;
-  try {
-    return await axios.post(url, body);
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+  return await axios.post(url, body);
 };
 
 export const wordsApi = { fetchWords, createWord };

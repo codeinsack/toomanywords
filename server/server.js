@@ -11,6 +11,7 @@ const { connectMongoDb } = require('./config/mongodb');
 connectMongoDb();
 
 const words = require('./routes/words');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/words', words);
+app.use('/api/v1/auth', auth);
 
 app.use(errorHandler);
 

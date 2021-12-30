@@ -2,14 +2,12 @@
   <VContainer fill-height fluid>
     <div class="sign-in-card-container">
       <VCard class="sign-in-card pa-8 mr-0" width="550" flat>
-        <VCardTitle class="text-h5 text-md-h4 font-weight-bold primary--text">
-          Sign In
-        </VCardTitle>
+        <VCardTitle class="text-h5 text-md-h4 font-weight-bold primary--text"> Sign In </VCardTitle>
         <VCardSubtitle class="body-2 text-md-body-1">
           Please enter your credentials to sign in
         </VCardSubtitle>
         <VCardText>
-          <VForm @submit="onFormSubmit">
+          <VForm @submit.prevent="onFormSubmit">
             <p class="text-h6 text-md-h5 font-weight-bold primary--text">Email</p>
             <VTextField v-model="email" class="rounded-0" placeholder="Email" outlined />
             <p class="text-h6 text-md-h5 font-weight-bold primary--text">Password</p>
@@ -54,6 +52,7 @@
 <script>
 import { defineComponent } from '@vue/composition-api';
 import { ref } from '@vue/composition-api';
+import { authStore } from '../store/user';
 
 export default defineComponent({
   setup() {
@@ -61,7 +60,9 @@ export default defineComponent({
     const password = ref('');
     const loading = ref(false);
 
-    const onFormSubmit = () => {};
+    const onFormSubmit = async () => {
+      await authStore.login({ email: email.value, password: password.value });
+    };
 
     return {
       onFormSubmit,

@@ -5,9 +5,14 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/composition-api';
+import { wordsApi } from '../api/words';
+
 export default {
   setup() {
-    //
+    onMounted(async () => {
+      await wordsApi.fetchWords();
+    });
   },
 };
 </script>

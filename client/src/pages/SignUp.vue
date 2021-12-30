@@ -7,12 +7,14 @@
           Here you can create a new account
         </VCardSubtitle>
         <VCardText>
-          <VForm @submit="onFormSubmit">
+          <VForm @submit.prevent="onFormSubmit">
+            <p class="text-h6 text-md-h5 font-weight-bold primary--text">Username</p>
+            <VTextField v-model="user.username" class="rounded-0" placeholder="Username" outlined />
             <p class="text-h6 text-md-h5 font-weight-bold primary--text">Email</p>
-            <VTextField v-model="email" class="rounded-0" placeholder="Email" outlined />
+            <VTextField v-model="user.email" class="rounded-0" placeholder="Email" outlined />
             <p class="text-h6 text-md-h5 font-weight-bold primary--text">Password</p>
             <VTextField
-              v-model="password"
+              v-model="user.password"
               class="rounded-0"
               placeholder="Password"
               type="password"
@@ -51,20 +53,28 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api';
-import { ref } from '@vue/composition-api';
+import { reactive, ref } from '@vue/composition-api';
+import { authStore } from '../store/user';
+
+const initialState = {
+  username: '',
+  email: '',
+  password: '',
+};
 
 export default defineComponent({
   setup() {
-    const email = ref('');
-    const password = ref('');
+    let user = reactive({ ...initialState });
     const loading = ref(false);
 
-    const onFormSubmit = () => {};
+    const onFormSubmit = async () => {
+      await authStore.register(user);
+      Object.assign(user, initialState);
+    };
 
     return {
       onFormSubmit,
-      email,
-      password,
+      user,
       loading,
     };
   },
