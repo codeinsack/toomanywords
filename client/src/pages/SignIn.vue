@@ -9,10 +9,10 @@
         <VCardText>
           <VForm @submit.prevent="onFormSubmit">
             <p class="text-h6 text-md-h5 font-weight-bold primary--text">Email</p>
-            <VTextField v-model="email" class="rounded-0" placeholder="Email" outlined />
+            <VTextField v-model="user.email" class="rounded-0" placeholder="Email" outlined />
             <p class="text-h6 text-md-h5 font-weight-bold primary--text">Password</p>
             <VTextField
-              v-model="password"
+              v-model="user.password"
               class="rounded-0"
               placeholder="Password"
               type="password"
@@ -53,21 +53,25 @@
 import { defineComponent } from '@vue/composition-api';
 import { ref } from '@vue/composition-api';
 import { authStore } from '../store/user';
+import { reactive } from '@vue/composition-api/dist/vue-composition-api';
+
+const initialState = {
+  email: '',
+  password: '',
+};
 
 export default defineComponent({
   setup() {
-    const email = ref('');
-    const password = ref('');
+    let user = reactive({ ...initialState });
     const loading = ref(false);
 
     const onFormSubmit = async () => {
-      await authStore.login({ email: email.value, password: password.value });
+      await authStore.login(user);
     };
 
     return {
       onFormSubmit,
-      email,
-      password,
+      user,
       loading,
     };
   },

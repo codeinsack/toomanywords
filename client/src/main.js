@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -27,14 +27,12 @@ Vue.use(VueCompositionAPI);
 //     return Promise.reject(error);
 //   }
 // );
-//
-// axios.interceptors.request.use(function (config) {
-//   const user = localStorage.getItem('user');
-//   if (user) {
-//     config.headers.Authorization = JSON.parse(user)?.token;
-//     return config;
-//   }
-// });
+
+axios.interceptors.request.use(function (config) {
+  config.headers.Authorization = JSON.parse(localStorage.getItem('token'));
+
+  return config;
+});
 
 new Vue({
   router,

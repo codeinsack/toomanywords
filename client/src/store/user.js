@@ -1,5 +1,6 @@
 import { createEffect, createStore } from 'effector';
 import { authApi } from '../api/auth';
+import router from '../router';
 
 const register = createEffect(async (user) => {
   const { data } = await authApi.register(user);
@@ -12,14 +13,19 @@ const login = createEffect(async (user) => {
 });
 
 const $user = createStore(null)
-  .on(register, (_, user) => {
-    console.log('_', _);
+  .on(register.doneData, (_, user) => {
     console.log('user', user);
   })
-  .on(login, (_, user, c) => {
-    console.log('_', _);
-    console.log('user', user);
-    console.log('c', c);
+  .on(login.doneData, async (_, user) => {
+    if (!user?.token) return;
+    localStorage.setItem('token', JSON.stringify(user.token));
+
+    const { data } = await authApi.fetchCurrentUser(user);
+    if (data) {
+      localStorage.setItem('user', JSON.stringify(data));
+      await router.push('/');
+      return { ...data, user };
+    }
   });
 
 export const authStore = {
